@@ -3,10 +3,7 @@ import time
 from RPLCD.i2c import CharLCD
 import os
 import time
-import Conveyer
-import IRSensor
-import rpiCamera
-import MobileAI
+from ScriptLibs import Conveyer, IRSensor, rpiCamera, MobileAI
 
 #LCD 2x16
 lcd = CharLCD(i2c_expander='PCF8574', address=0x27, port=1, cols=16, rows=2, dotsize=8)
