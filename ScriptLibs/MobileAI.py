@@ -46,8 +46,17 @@ def classify_images_in_folder(folder_path):
     for img_file in os.listdir(folder_path):
         if img_file.endswith('.jpg'):  # Check for .jpg files
             img_path = os.path.join(folder_path, img_file)
-            label, confidence = classify_waste(img_path)
+            label, confidence = classify_Waste(img_path)
             output_folder = output_folders[label]
-            shutil.move(img_path, os.path.join(output_folder, img_file))
+
+            # Guard for filename collisions:
+            base, ext = os.path.splitext(img_file)
+            i = 1
+            new_img_file = img_file
+            while os.path.exists(os.path.join(output_folder, new_img_file)):
+                new_img_file = f"{base}_{i}{ext}"
+                i += 1
+
+            shutil.move(img_path, os.path.join(output_folder, new_img_file))
             lcd.write_string(f"{label}: {confidence*100:.2f}%")
             lcd.crlf()

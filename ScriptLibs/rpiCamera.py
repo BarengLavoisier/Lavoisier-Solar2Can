@@ -1,24 +1,13 @@
-import os
-import picamera
+from picamera2 import Picamera2, Preview
 import time
 
-camera = picamera.PiCamera()
+picam2 = Picamera2()
 
-base_name = "Sample"
-
-def capture_image(base_name, folder_path):
-    # Find the next available file name
-    index = 0
-    while True:
-        file_name = f"{base_name}{index}.jpg" if index else f"{base_name}.jpg"
-        file_path = os.path.join(folder_path, file_name)
-        if not os.path.exists(file_path):
-            break
-        index += 1
-    
-    # Capture the image
-    camera.start_preview()
-    sleep(3)  # Camera warm-up time
-    camera.capture(file_path)
-    camera.stop_preview()
-    return file_name
+def capture_image():
+    camera_config = picam2.create_still_configuration(main={"size": (1920, 1080)}, lores={"size": (640, 480)}, display="lores")
+    picam2.configure(camera_config)
+    picam2.start()
+    time.sleep(2)
+    picam2.capture_file("./Cam-Input/test.png")
+    time.sleep(1)
+    picam2.stop()

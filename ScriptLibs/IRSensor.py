@@ -1,6 +1,12 @@
 import RPi.GPIO as GPIO
 import time
-import Piston
+from ScriptLib import rpiCamera, Piston
+
+from RPLCD.i2c import CharLCD
+
+#LCD 2x16
+lcd = CharLCD(i2c_expander='PCF8574', address=0x27, port=1, cols=16, rows=2, dotsize=8)
+lcd.clear()
 
 #IR Sensor Pins
 sensor_pin1 = 23
@@ -69,4 +75,12 @@ def Sensor_3():
       lcd.clear()
       
 def Cam_SensorDetect():
-  pass
+  while True:
+    cam_Sense = GPIO.input(Camsensor_pin)
+
+    if cam_Sense == 0:
+      lcd.clear()
+      rpiCamera.capture_image()
+      time.sleep(5)
+    else:
+      lcd.write_string("Place Trash Here")

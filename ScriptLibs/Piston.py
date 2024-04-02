@@ -3,7 +3,7 @@ import time
 
 GPIO.setwarnings(False)
 GPIO.setmode(GPIO.BCM)
-GPIO.setup(18, GPIO.OUT)\
+GPIO.setup(18, GPIO.OUT)
     
 def piston_Push():
     GPIO.output(18, 1)

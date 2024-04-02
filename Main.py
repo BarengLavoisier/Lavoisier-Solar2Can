@@ -3,7 +3,7 @@ import time
 from RPLCD.i2c import CharLCD
 import os
 import time
-from ScriptLibs import Conveyer, IRSensor, rpiCamera, MobileAI
+from ScriptLibs import Conveyer, IRSensor, MobileAI
 
 #LCD 2x16
 lcd = CharLCD(i2c_expander='PCF8574', address=0x27, port=1, cols=16, rows=2, dotsize=8)
@@ -19,8 +19,6 @@ def Start_LCD():
 
 async def main():
   Start_LCD()
-  Blynk_DHT11.blynk_connected()
   time.sleep(5)
-  
   IRSensor.Cam_SensorDetect()
 
