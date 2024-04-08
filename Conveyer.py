@@ -1,3 +1,5 @@
+import RPi.GPIO as GPIO
+
 #Motor Driver Pins
 en_a = 13
 GPIO.setmode(GPIO.BCM)
